@@ -8,6 +8,7 @@
 
 
 getNum macro para1, para2
+    Local L1, After_Back, check, check_Loop, find_Space, mainPosition, error_Format, exit_getNum
     push ax     ;push ax register
     push si     ;push si register
     mov si, 0   

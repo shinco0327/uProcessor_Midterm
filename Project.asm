@@ -4,14 +4,14 @@
 ;Author: Yu Shan Huang
 ;National Taiwan University of Science Technology
 ;Department of Electrical Engineering
-include printStr.h
+include ProjectPrint.h
 include getNum.h
 include MathCompute.h
 .model small
 
 .data
 str1 db "Please enter two numbers between 1 to 99:" ,10,13,'$'
-error_message db 10, 13, "Error Format. The example format is like 20 50.", 10, 13, "Please enter again!", 10 ,13, '$'
+error_message db 10, 13, "Error Format. Please enter numbers between 1 to 99", 10, 13, "The example format is like 20 50. Please enter again!", 10 ,13, '$'
 str2 db 10, 13, "in hex: $"
 str3 db 10, 13, "in Decimal: $"
 str4 db 10, 13, "GCD is $"
@@ -27,11 +27,12 @@ main proc
     mov ds, ax
     printStr str1
     getNum input_str, error_message
-
     DataConvertion:
     ASCIIDecimal    
     Combine 
-    MathCompute mul_result ;GCD cx L ax
+    MathCompute mul_result ;GCD cx LCM ax
+    push ax
+    push cx
     push ax
     printStr str2
     printStr str4
@@ -39,6 +40,15 @@ main proc
     printStr str5
     pop cx
     printNum input_str
+    pop bx
+    HextoDecimal input_str
+    printStr str3
+    printStr str4
+    printStr input_str
+    pop bx
+    HextoDecimal input_str
+    printStr str5
+    printStr input_str
     
 
     mov ax, 4c00h

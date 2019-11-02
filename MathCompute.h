@@ -30,9 +30,30 @@ Combine macro
     endm
 
 MathCompute macro result
+    Local GCD, L1, Leave
     mov dx, bx
     mov ax, cx
     mul dx
-    mov dx, ax
-    
+    push ax
+    cmp bx, cx
+    jge GCD
+    push bx
+    push cx
+    pop bx
+    pop cx
+    GCD:
+    mov ax, bx
+    L1:
+        mov dx, 0
+        cmp cx, 0
+        jle Leave
+        div cx
+        mov ax, cx
+        mov cx, dx
+        jmp L1
+    Leave:
+    mov cx, ax
+    mov dx, 0
+    pop ax
+    div cx
     endm

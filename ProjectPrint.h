@@ -1,11 +1,4 @@
-/*
- Abandon
- 
- No Longer Use
-
-*/
-
-;printStr.h
+;ProjectPrint.h
 
 printStr macro para1
     push ax
@@ -71,3 +64,4 @@ printNum macro result
     pop bx
     pop bp
     endm
+

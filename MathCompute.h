@@ -4,32 +4,32 @@
 ;National Taiwan University of Science Technology
 ;Department of Electrical Engineering
 
-ASCIIDecimal macro
+ASCIIDecimal macro result
     Local L1
     mov cx, 5
     mov si, 0
     L1:
-        add input_str[si] , 0D0h
+        add result[si] , 0D0h
         inc si
         loop  L1
     endm
 
-Combine macro
+Combine macro result
     mov bx, 0
-    add bl, input_str[0]
+    add bl, result[0]
     mov al, 0Ah
     mul bl
     mov bl, al
-    add bl, input_str[1]
+    add bl, result[1]
     mov cx, 0
-    add cl, input_str[3]
+    add cl, result[3]
     mov al, 0Ah
     mul cl
     mov cl, al
-    add cl, input_str[4]
+    add cl, result[4]
     endm
 
-MathCompute macro result
+Computation macro result
     Local GCD, L1, Leave
     mov dx, bx
     mov ax, cx
@@ -76,21 +76,20 @@ HextoDecimal macro num_store
     add dx, ax
 
     push dx
-    mov bp, sp
-    mov bx, SS:[bp+2]
+    mov bx, SS:[bp]
     shl bh, cl
     mov cl, 0ch
     shr bx, cl
     mov ax, 100h
     mul bx
-    add ss:[bp], ax
+    add ss:[bp-2], ax
 
-    mov bx, SS:[bp+2]
+    mov bx, SS:[bp]
     mov cl, 0ch
     shr bx, cl
     mov ax, 1000h
     mul bx
-    add ss:[bp], ax
+    add ss:[bp-2], ax
 
     mov dx, 0h
     mov ax, SS:[bp]
@@ -119,6 +118,6 @@ HextoDecimal macro num_store
         loop L1
     mov num_store[4], '$'
 
-    pop bx
+    mov sp, bp
     pop bx
     endm

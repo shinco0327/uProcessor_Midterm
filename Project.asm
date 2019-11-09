@@ -2,6 +2,7 @@
 ;File name: Project.asm
 ;Date: 2019/10/30
 ;Author: Yu Shan Huang
+;StudentID: B10707049
 ;National Taiwan University of Science Technology
 ;Department of Electrical Engineering
 include ProjectPrint.h      
@@ -25,9 +26,9 @@ mul_result dw ?
 
 .code
 main proc
-Program_Start:                              ;Program start at here
 	mov ax, @data
     mov ds, ax
+    Program_Start:                          ;Program start at here
     printStr str1                           ;Print "Please enter two numbers between 1 to 99:"
     getNum NumStore, error_message          ;Get keyboard input. Two parameters.
     DataConvertion:                         ;Received keyboard input, starting computation. 

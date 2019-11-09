@@ -1,9 +1,11 @@
+;uProcessor Midterm Project
 ;File name: getNum.h
 ;Date: 2019/11/1
 ;Author: Yu Shan Huang
+;StudentID: B10707049
 ;National Taiwan University of Science Technology
 ;Department of Electrical Engineering
-;This macro is used to scan keyboard input
+;The macro getNum is used to scan keyboard input
 ;The return type will be a 5 bytes string in the following format: "num1 num2"
 
 
@@ -12,7 +14,8 @@ getNum macro para1, para2
     push ax                         ;push ax register
     push si                         ;push si register
     push bp                         ;push bp register
-    mov si, 0   
+    mov si, 04h   
+    jmp Clear_Loop
     L1:
         mov ah, 00h
         int 16h                     ;Get keyboard input
@@ -69,7 +72,9 @@ getNum macro para1, para2
         cmp para1[si], 39h          ;If the data is above 39h or below 30h, means the data is not between 0-9 in decimal
         ja error_Format             ;jmp to error_Format
         cmp para1[si], 30h
-        jb error_Format     
+        jb error_Format
+        cmp para1[si+4], 00h        ;If the data of para1[4] not equals to null
+        jne error_Format            ;jmp to error_Format  
         push word ptr para1[si+2]   ;push O₁O₂ in "X₁ O₁O₂"
         mov al, para1[si]           ;mov X₁ to al 
         mov para1[si+1], al         ;It will become "X₁X₁O₁O₂"

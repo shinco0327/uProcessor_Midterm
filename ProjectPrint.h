@@ -1,9 +1,11 @@
+;uProcessor Midterm Project
 ;File name: ProjectPrint.h
 ;Date: 2019/11/3
 ;Author: Yu Shan Huang
+;StudentID: B10707049
 ;National Taiwan University of Science Technology
 ;Department of Electrical Engineering
-;This macro is used to display message or number
+;ProjectPrint.h included two macroes which are used to display message or number
 
 printStr macro para1                        ;The macro prints a string          
     push ax                                 ;push ax
@@ -16,10 +18,11 @@ printStr macro para1                        ;The macro prints a string
     endm                                    ;end of macro
 
 printNum macro result                       ;This macro prints number in cx
-    Local ADD_1, ADD_2, ADD_3, ADD_4        
-    push bp                                 ;push following register bp, bx, ax, cx
+    Local ADD_1, ADD_2, ADD_3, ADD_4, L1, Exit_L1
+    push bp                                 ;push following register bp, bx, ax, si, cx
     push bx
     push ax
+    push si
     push cx                                 
     mov bp, sp                              ;Make the bp point to sp
     mov bx, SS:[bp]                         ;mov the data orginally stored in cx to bx 
@@ -63,10 +66,19 @@ printNum macro result                       ;This macro prints number in cx
 	mov result[3], bl                       ;Store the result
 
     mov result[4], '$'                      ;End of the string
+    mov si, 0                                     
+    L1:                                     ;Blanking 0
+        cmp result[si], 30h                 ;if result[si] equals to '0'
+        jne Exit_L1                         ;else exit L1
+        mov result[si], 20h                 ; mov ' ' to it
+        inc si                              
+        jmp L1                              ;next result[si]
+    Exit_L1:
     mov ah, 09h                             
     mov dx, offset result                   ;mov the starting address of result to dx
     int 21h                                 ;DOS interrupt
     pop cx                                  ;pop the register
+    pop si
     pop ax
     pop bx
     pop bp

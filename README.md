@@ -1,4 +1,7 @@
-# uProcessor_Midterm
+# 使用組合語言求最大公因數與最小公倍數
+
+# Highest Common Factor & Least Common Multiple Calculation by Assembly Code
+
 NTUST Electrical Engineering μPI Fall, 2019 Midterm Project 
 
 ![IMAGE](NTUST_LOGO.png)
